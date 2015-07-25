@@ -1,0 +1,26 @@
+Les variables à ne pas modifier avec le logiciel :
+$
+activeElement
+addRange
+collapse
+createRange
+createTexteNode
+createTextRange
+cssText
+duplicate
+fermerDiv
+innerText
+moveStart
+moveToElementText
+opera
+removeAllRanges
+ScrollPosition
+selectionEnd
+selectionner
+selectionStart
+selectionTextarea
+selectNodeContent
+setBaseAndExtent
+setSelectionRange
+styleSheet
+textLenght

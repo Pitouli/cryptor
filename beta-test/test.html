@@ -1,0 +1,429 @@
+<?php session_start();
+
+require('users_n_code.php'); // contient les array $user_code et $code_user
+
+$user = $_SESSION['user'];
+$code = $_SESSION['code'];
+
+if(!in_array($user, $user_code)) {
+	echo('Une erreur a été générée : identification échouée. Retourner <a href="index.php">ici</a> pour l\'identification');
+	exit();
+}
+else {
+	if($code != $user_code[$user]) {
+		echo('Une erreur a été générée : identification échouée. Retourner <a href="index.php">ici</a> pour l\'identification');
+		exit();
+	}
+}
+
+if(is_numeric($_GET['edit'])) {
+	$edit = $_GET['edit'];
+	require('connect.php');
+	$req = "SELECT resultat FROM beta-test WHERE id='$edit'";
+	$res = mysql_query($req); 
+	mysql_close();
+}
+else {
+	$edit = 'new';
+}
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Tableau de beta-test du bookmarklet</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+<div id="corps">
+<form id="form-tableau" method="post" action="save-tableau.php">
+<input name="edit" type="hidden" value="<?=$edit?>" />
+<h1>Tableau de beta-test</h1>
+<p><a href="index.php">Retour à l'accueil</a></p>
+<p>Entrons dans le vif du sujet. Pour créer un nouveau tableau de test, indique le système d'opération que tu comptes utiliser de manière à peu près précise (Windows Seven pro est largement suffisant... A priori que ce soit le build 4678 ou 5786 ne changera pas grand chose !) ainsi que le navigateur (là, on va dire que la version est un peu plus importante. Ne tombons pas dans l'excès non plus !)</p>
+<p>Pour me faciliter la tâche, si tu pouvais écrire les noms en copiant (et adaptant) ce modèle, ça m'arrangerait : Windows XP, Windows Vista Pro, Windows Seven Ultimate, Mac OS X, Linux Ubuntu, Firefox 2, Firefox 3.5, Internet Explorer 8, Safari 4, etc.</p>
+<p>Puis réponds &quot;oui&quot; à chaque critère en cochant la case en regard de celui ci, ou &quot;non&quot; en la décochant (ou en la laissant décochée). Tu peux si besoin (et si possible à chaque fois que tu ne coche pas la case) ajouter des commentaires ou des indications dans les champs de texte qui suivent les cases.</p>
+<p>Je n'ai pas voulu passer trop de temps à créer cette interface de beta testage, et j'ai donc été assez &quot;brutal&quot; dans la gestion des erreurs. Donc si ça plante, lis l'information qui t'es donnée, et essaie de recommencer en la prenant en compte ! Par exemple, un test peut être complété en plusieurs fois (voir la note important qui suit), mais doit impérativement comporté le nom de l'OS et du navigateur pour être sauvegardé.</p>
+<p>Note importante : tu peux remplir le tableau en plusieurs fois, et l'éditer à tout instant. Cependant, si tu sais qu'il n'est pas complet, pense à cocher la dernière case tout en bas, (elle est collée au bouton de sauvegarde) ! De même, histoire de me faire gagner du temps, tu trouveras à la fin du test un micro tableau pour me dire si oui ou non il est utile que je vienne le lire. Attention ! Un tableau où tout est considéré comme parfait n'est pas un mauvais tableau ! Cela me permettra au contraire d'indiquer que le bookmarklet est compatible avec l'OS et le navigateur utilisé !</p>
+<h2>Tableau de résultat</h2>
+<p>Merci de le remplir INTEGRALEMENT (les cases de commentaires peuvent ne pas être remplies, et evidemment si un problème est révélé lors du test, des cases peuvent ne pas être cochées). Remarque supplémentaire : tout est tourné de manière à ce qu'une case coché signifie&quot;bien&quot;. La tournure &quot;Pas d'amélioration à faire&quot; n'est pas une incitation à ne pas en proposer !!</p>
+<table id="tableau-test">
+  <tr>
+    <td>Système d'exploitation</td>
+    <td class="td-input"><input type="text" class="input-text" name="Input-OS" id="Input-OS" value="<?=$res['Input-OS']?>" /></td>
+  </tr>
+  <tr>
+    <td>Navigateur utilisé</td>
+    <td class="td-input"><input type="text" class="input-text" name="Input-Nav" id="Input-Nav" value="<?=$res['Input-nav']?>" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre1"><div align="center">Hors Zone de Texte</div></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre2"><div align="center">Sélection de texte crypté</div></td>
+  </tr>
+  <tr>
+    <td>Decryptage effectif</td>
+    <td class="td-input"><input name="HZT-SelCry-1" type="checkbox" class="input-checkbox" id="HZT-SelCry-1" <?php if(res['HZT-SelCry-1']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-1']?>" name="HZT-SelCry-Com-1" id="HZT-SelCry-Com-1" /></td>
+  </tr>
+  <tr>
+    <td>Apparition d'un panneau</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-2" id="HZT-SelCry-2" <?php if(res['HZT-SelCry-2']) echo 'checked="checked"'; ?> /> 
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-2']?>" name="HZT-SelCry-Com-2" id="HZT-SelCry-Com-2" /></td>
+  </tr>
+  <tr>
+    <td>Bonne transformation des urls en liens</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-3" id="HZT-SelCry-3" <?php if(res['HZT-SelCry-3']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-3']?>" name="HZT-SelCry-Com-3" id="HZT-SelCry-Com-3" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;fermer&quot; du panneau fonctionne</td>
+    <td class="td-input vert"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-4" id="HZT-SelCry-4" <?php if(res['HZT-SelCry-4']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-4']?>" name="HZT-SelCry-Com-4" id="HZT-SelCry-Com-4" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;autre interface&quot; du panneau fonctionne</td>
+    <td class="td-input rouge"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-5" id="HZT-SelCry-5" <?php if(res['HZT-SelCry-5']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-5']?>" name="HZT-SelCry-Com-5" id="HZT-SelCry-Com-5" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;sélectionner&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-6" id="HZT-SelCry-6" <?php if(res['HZT-SelCry-6']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-6']?>" name="HZT-SelCry-Com-6" id="HZT-SelCry-Com-6" /></td>
+  </tr>
+  <tr>
+    <td>Quand le texte est long, apparition d'une scrollbar</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-7" id="HZT-SelCry-7" <?php if(res['HZT-SelCry-7']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-7']?>" name="HZT-SelCry-Com-7" id="HZT-SelCry-Com-7" /></td>
+  </tr>
+  <tr>
+    <td>Si TWL2.1, message clair d'explication</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-8" id="HZT-SelCry-8" <?php if(res['HZT-SelCry-8']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-8']?>" name="HZT-SelCry-Com-8" id="HZT-SelCry-Com-8" /></td>
+  </tr>
+  <tr>
+    <td>Respect de la mise en forme originale (saut de lignes)</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-9" id="HZT-SelCry-9" <?php if(res['HZT-SelCry-9']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-9']?>" name="HZT-SelCry-Com-9" id="HZT-SelCry-Com-9" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'aberration esthétique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-10" id="HZT-SelCry-10" <?php if(res['HZT-SelCry-10']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-10']?>" name="HZT-SelCry-Com-10" id="HZT-SelCry-Com-10" /></td>
+  </tr>
+  <tr>
+    <td>Pas de problème de sécurité</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-11" id="HZT-SelCry-11" <?php if(res['HZT-SelCry-11']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-11']?>" name="HZT-SelCry-Com-11" id="HZT-SelCry-Com-11" /></td>
+  </tr>
+  <tr>
+    <td>Pas de corrections à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-12" id="HZT-SelCry-12" <?php if(res['HZT-SelCry-12']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-12']?>" name="HZT-SelCry-Com-12" id="HZT-SelCry-Com-12" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'améliorations à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SelCry-13" id="HZT-SelCry-13" <?php if(res['HZT-SelCry-13']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelCry-Com-13']?>" name="HZT-SelCry-Com-13" id="HZT-SelCry-Com-13" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre2"><div align="center">Sélection de texte clair</div></td>
+  </tr>
+  <tr>
+    <td>Cryptage effectif</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-1" id="HZT-SeclClair-1" <?php if(res['HZT-SelClair-1']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-1']?>" name="HZT-SelClair-Com-1" id="HZT-SelClair-Com-1" /></td>
+  </tr>
+  <tr>
+    <td>Apparition d'un panneau</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-2" id="HZT-SeclClair-2" <?php if(res['HZT-SelClair-2']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-2']?>" name="HZT-SelClair-Com-2" id="HZT-SelClair-Com-2" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;fermer&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-3" id="HZT-SeclClair-3" <?php if(res['HZT-SelClair-3']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-3']?>" name="HZT-SelClair-Com-3" id="HZT-SelClair-Com-3" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;autre interface&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-4" id="HZT-SeclClair-4" <?php if(res['HZT-SelClair-4']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-4']?>" name="HZT-SelClair-Com-4" id="HZT-SelClair-Com-4" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;sélectionner&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-5" id="HZT-SeclClair-5" <?php if(res['HZT-SelClair-5']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-5']?>" name="HZT-SelClair-Com-5" id="HZT-SelClair-Com-5" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'aberration esthétique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-6" id="HZT-SeclClair-6" <?php if(res['HZT-SelClair-6']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-6']?>" name="HZT-SelClair-Com-6" id="HZT-SelClair-Com-6" /></td>
+  </tr>
+  <tr>
+    <td>Pas de problème de sécurité</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-7" id="HZT-SeclClair-7" <?php if(res['HZT-SelClair-7']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-7']?>" name="HZT-SelClair-Com-7" id="HZT-SelClair-Com-7" /></td>
+  </tr>
+  <tr>
+    <td>Pas de corrections à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-8" id="HZT-SeclClair-8" <?php if(res['HZT-SelClair-8']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-8']?>" name="HZT-SelClair-Com-8" id="HZT-SelClair-Com-8" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'améliorations à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-SeclClair-9" id="HZT-SeclClair-9" <?php if(res['HZT-SelClair-9']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-SelClair-Com-9']?>" name="HZT-SelClair-Com-9" id="HZT-SelClair-Com-9" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre2"><div align="center">Pas de sélection</div></td>
+  </tr>
+  <tr>
+    <td>Clic gauche sur le bookmarklet = ouverture dans l'onglet du site TWL2 Online</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-PasSel-1" id="HZT-PasSel-1" <?php if(res['HZT-PasSel-1']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-PasSel-Com-1']?>" name="HZT-PasSel-Com-1" id="HZT-PasSel-Com-1" /></td>
+  </tr>
+  <tr>
+    <td>Clic roulette sur le bookmarklet = ouverture dans un nouvel onglet du site TWL2 Online</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-PasSel-2" id="HZT-PasSel-2" <?php if(res['HZT-PasSel-2']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-PasSel-Com-2']?>" name="HZT-PasSel-Com-2" id="HZT-PasSel-Com-2" /></td>
+  </tr>
+  <tr>
+    <td>Pas de corrections à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-PasSel-3" id="HZT-PasSel-3" <?php if(res['HZT-PasSel-3']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-PasSel-Com-3']?>" name="HZT-PasSel-Com-3" id="HZT-PasSel-Com-3" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'améliorations à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="HZT-PasSel-4" id="HZT-PasSel-4" <?php if(res['HZT-PasSel-4']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['HZT-PasSel-Com-4']?>" name="HZT-PasSel-Com-4" id="HZT-PasSel-Com-4" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre1"><div align="center">Dans une Zone de Texte</div></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre2"><div align="center">Sélection de texte crypté</div></td>
+  </tr>
+  <tr>
+    <td>Décryptage et remplacement du cryptage dans la zone de texte</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-1" id="ZT-SelCry-1" <?php if(res['ZT-SelCry-1']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-1']?>" name="ZT-SelCry-Com-1" id="ZT-SelCry-Com-1" /></td>
+  </tr>
+  <tr>
+    <td>Repositionnement du curseur à la fin du décryptage</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-2" id="ZT-SelCry-2" <?php if(res['ZT-SelCry-2']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-2']?>" name="ZT-SelCry-Com-2" id="ZT-SelCry-Com-2" /></td>
+  </tr>
+  <tr>
+    <td>Repositionnement de la scrollbar de la zone de texte à l'endroit adéquat</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-3" id="ZT-SelCry-3" <?php if(res['ZT-SelCry-3']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-3']?>" name="ZT-SelCry-Com-3" id="ZT-SelCry-Com-3" /></td>
+  </tr>
+  <tr>
+    <td>Décryptage et apparition d'un panneau</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-4" id="ZT-SelCry-4" <?php if(res['ZT-SelCry-4']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-4']?>" name="ZT-SelCry-Com-4" id="ZT-SelCry-Com-4" /></td>
+  </tr>
+  <tr>
+    <td>Dans le panneau, bonne transformation des urls en liens</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-5" id="ZT-SelCry-5" <?php if(res['ZT-SelCry-5']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-5']?>" name="ZT-SelCry-Com-5" id="ZT-SelCry-Com-5" /></td>
+  </tr>
+  <tr>
+    <td>Dans le panneau, la fonction &quot;fermer&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-6" id="ZT-SelCry-6" <?php if(res['ZT-SelCry-6']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-6']?>" name="ZT-SelCry-Com-6" id="ZT-SelCry-Com-6" /></td>
+  </tr>
+  <tr>
+    <td>Dans le panneau, la fonction &quot;autre interface&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-7" id="ZT-SelCry-7" <?php if(res['ZT-SelCry-7']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-7']?>" name="ZT-SelCry-Com-7" id="ZT-SelCry-Com-7" /></td>
+  </tr>
+  <tr>
+    <td>Dans le panneau, la fonction &quot;sélectionner&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-8" id="ZT-SelCry-8" <?php if(res['ZT-SelCry-8']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-8']?>" name="ZT-SelCry-Com-8" id="ZT-SelCry-Com-8" /></td>
+  </tr>
+  <tr>
+    <td>Dans le panneau, quand le texte est long, apparition d'une scrollbar</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-9" id="ZT-SelCry-9" <?php if(res['ZT-SelCry-9']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-9']?>" name="ZT-SelCry-Com-9" id="ZT-SelCry-Com-9" /></td>
+  </tr>
+  <tr>
+    <td>Si TWL2.1, message clair d'explication</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-10" id="ZT-SelCry-10" <?php if(res['ZT-SelCry-10']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-10']?>" name="ZT-SelCry-Com-10" id="ZT-SelCry-Com-10" /></td>
+  </tr>
+  <tr>
+    <td>Respect de la mise en forme original (saut de lignes)</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-11" id="ZT-SelCry-11" <?php if(res['ZT-SelCry-11']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-11']?>" name="ZT-SelCry-Com-11" id="ZT-SelCry-Com-11" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'aberration esthétique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-12" id="ZT-SelCry-12" <?php if(res['ZT-SelCry-12']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-12']?>" name="ZT-SelCry-Com-12" id="ZT-SelCry-Com-12" /></td>
+  </tr>
+  <tr>
+    <td>Pas de problème de sécurité</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-13" id="ZT-SelCry-13" <?php if(res['ZT-SelCry-13']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-13']?>" name="ZT-SelCry-Com-13" id="ZT-SelCry-Com-13" /></td>
+  </tr>
+  <tr>
+    <td>Pas de corrections à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-14" id="ZT-SelCry-14" <?php if(res['ZT-SelCry-14']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-14']?>" name="ZT-SelCry-Com-14" id="ZT-SelCry-Com-14" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'améliorations à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelCry-15" id="ZT-SelCry-15" <?php if(res['ZT-SelCry-15']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelCry-Com-15']?>" name="ZT-SelCry-Com-15" id="ZT-SelCry-Com-15" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre2"><div align="center">Sélection de texte clair</div></td>
+  </tr>
+  <tr>
+    <td>Cryptage et remplacement du texte clair avec ajout des balises [code] dans la zone de texte</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-1" id="ZT-SelClair-1" <?php if(res['ZT-SelClair-1']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-1']?>" name="ZT-SelClair-Com-1" id="ZT-SelClair-Com-1" /></td>
+  </tr>
+  <tr>
+    <td>Repositionnement du curseur à la fin du cryptage</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-2" id="ZT-SelClair-2" <?php if(res['ZT-SelClair-2']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-2']?>" name="ZT-SelClair-Com-2" id="ZT-SelClair-Com-2" /></td>
+  </tr>
+  <tr>
+    <td>Repositionnement de la scrollbar de la zone de texte à l'endroit adéquat</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-3" id="ZT-SelClair-3" <?php if(res['ZT-SelClair-3']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-3']?>" name="ZT-SelClair-Com-3" id="ZT-SelClair-Com-3" /></td>
+  </tr>
+  <tr>
+    <td>Apparition d'un panneau </td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-4" id="ZT-SelClair-4" <?php if(res['ZT-SelClair-4']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-4']?>" name="ZT-SelClair-Com-4" id="ZT-SelClair-Com-4" /></td>
+  </tr>
+  <tr>
+    <td>La fonction &quot;fermer&quot; du panneau fonctionne</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-5" id="ZT-SelClair-5" <?php if(res['ZT-SelClair-5']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-5']?>" name="ZT-SelClair-Com-5" id="ZT-SelClair-Com-5" /></td>
+  </tr>
+  <tr>
+    <td>Le panneau n'est pas <strong>trop</strong> dérangeant</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-6" id="ZT-SelClair-6" <?php if(res['ZT-SelClair-6']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-6']?>" name="ZT-SelClair-Com-6" id="ZT-SelClair-Com-6" /></td>
+  </tr>
+  <tr>
+    <td>L'explication du panneau est claire</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-7" id="ZT-SelClair-7" <?php if(res['ZT-SelClair-7']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-7']?>" name="ZT-SelClair-Com-7" id="ZT-SelClair-Com-7" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'aberration esthétique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-8" id="ZT-SelClair-8" <?php if(res['ZT-SelClair-8']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-8']?>" name="ZT-SelClair-Com-8" id="ZT-SelClair-Com-8" /></td>
+  </tr>
+  <tr>
+    <td>Pas de problème de sécurité</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-9" id="ZT-SelClair-9" <?php if(res['ZT-SelClair-9']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-9']?>" name="ZT-SelClair-Com-9" id="ZT-SelClair-Com-9" /></td>
+  </tr>
+  <tr>
+    <td>Pas de corrections à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-10" id="ZT-SelClair-10" <?php if(res['ZT-SelClair-10']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-10']?>" name="ZT-SelClair-Com-10" id="ZT-SelClair-Com-10" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'améliorations à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-SelClair-11" id="ZT-SelClair-11" <?php if(res['ZT-SelClair-11']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-SelClair-Com-11']?>" name="ZT-SelClair-Com-11" id="ZT-SelClair-Com-11" /></td>
+  </tr>
+  <tr>
+    <td colspan="2" class="tableau-titre2"><div align="center">Pas de sélection</div></td>
+  </tr>
+  <tr>
+    <td>Insertion au niveau du curseur d'une userbarre</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-1" id="ZT-PasSel-1" <?php if(res['ZT-PasSel-1']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-1']?>" name="ZT-PasSel-Com-1" id="ZT-PasSel-Com-1" /></td>
+  </tr>
+  <tr>
+    <td>Fermeture du panneau s'il était ouvert</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-2" id="ZT-PasSel-2" <?php if(res['ZT-PasSel-2']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-2']?>" name="ZT-PasSel-Com-2" id="ZT-PasSel-Com-2" /></td>
+  </tr>
+  <tr>
+    <td>La userbarre est esthétique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-3" id="ZT-PasSel-3" <?php if(res['ZT-PasSel-3']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-3']?>" name="ZT-PasSel-Com-3" id="ZT-PasSel-Com-3" /></td>
+  </tr>
+  <tr>
+    <td>La userbarre est pratique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-4" id="ZT-PasSel-4" <?php if(res['ZT-PasSel-4']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-4']?>" name="ZT-PasSel-Com-4" id="ZT-PasSel-Com-4" /></td>
+  </tr>
+  <tr>
+    <td>La userbarre est facilement compréhensible</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-5" id="ZT-PasSel-5" <?php if(res['ZT-PasSel-5']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-5']?>" name="ZT-PasSel-Com-5" id="ZT-PasSel-Com-5" /></td>
+  </tr>
+  <tr>
+    <td>La userbarre est &quot;attirante&quot;</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-6" id="ZT-PasSel-6" <?php if(res['ZT-PasSel-6']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-6']?>" name="ZT-PasSel-Com-6" id="ZT-PasSel-Com-6" /></td>
+  </tr>
+  <tr>
+    <td>La userbarre n'est pas <strong>trop</strong> &quot;tappe à l'oeil&quot;</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-7" id="ZT-PasSel-7" <?php if(res['ZT-PasSel-7']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-7']?>" name="ZT-PasSel-Com-7" id="ZT-PasSel-Com-7" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'aberration esthétique</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-8" id="ZT-PasSel-8" <?php if(res['ZT-PasSel-8']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-8']?>" name="ZT-PasSel-Com-8" id="ZT-PasSel-Com-8" /></td>
+  </tr>
+  <tr>
+    <td>Pas de problème de sécurité</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-9" id="ZT-PasSel-9" <?php if(res['ZT-PasSel-9']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-9']?>" name="ZT-PasSel-Com-9" id="ZT-PasSel-Com-9" /></td>
+  </tr>
+  <tr>
+    <td>Pas de corrections à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-10" id="ZT-PasSel-10" <?php if(res['ZT-PasSel-10']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-10']?>" name="ZT-PasSel-Com-10" id="ZT-PasSel-Com-10" /></td>
+  </tr>
+  <tr>
+    <td>Pas d'améliorations à apporter</td>
+    <td class="td-input"><input type="checkbox" class="input-checkbox" name="ZT-PasSel-11" id="ZT-PasSel-11" <?php if(res['ZT-PasSel-11']) echo 'checked="checked"'; ?> />
+        <input type="text" class="input-text" value="<?=$res['ZT-PasSel-Com-11']?>" name="ZT-PasSel-Com-11" id="ZT-PasSel-Com-11" /></td>
+  </tr>
+</table>
+<h2>Des améliorations ?</h2>
+<p>
+  <textarea name="Input-Amelio" id="Input-Amelio" cols="45" rows="5"><?=$res['Input-Amelio']?></textarea>
+</p>
+<h2>Un petit mot en plus ?</h2>
+<p>
+  <textarea name="Input-Com" id="Input-Amelio" cols="45" rows="5"<?=$res['Input-Com']?>></textarea>
+</p>
+<h2>Conclusion</h2>
+<p>Merci d'avoir pris la peine de réaliser ce test ! N'hésite pas à en faire pleins d'autre ! Pour me faire gagner pleins de temps et m'éviter d'avoir à coder un truc qui le vérifierait automatiquement, merci de cocher les cases comme précedemment :</p>
+<table id="tableau-info">
+  <tr>
+    <td>Il n'y a pas de problème(s) à corriger</td>
+    <td><input type="checkbox" name="test-no-pb" class="input-checkbox" id="test-no-pb" <?php if(res['test-no-pb']) echo 'checked="checked"'; ?> /></td>
+  </tr>
+  <tr>
+    <td>Il n'y a pas d'amélioration(s) à apporter</td>
+    <td><input type="checkbox" name="test-no-amelio" class="input-checkbox" id="test-no-amelio" <?php if(res['test-no-amelio']) echo 'checked="checked"'; ?> /></td>
+  </tr>
+</table>
+<p>Encore merci !</p>
+<p>
+  <input type="submit" name="save-test" id="save-test" value="SAUVEGARDER" />
+  <input type="checkbox" name="test-en-redac" class="input-checkbox" id="test-en-redac" <?php if(res['test-en-redac']) echo 'checked="checked"'; ?> /> 
+  <em>Cocher la case si le test est en cours de rédaction  </em></p>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+html
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #939393;
+	background: #000000 url(images/background.gif);
+	}
+body
+	{
+	background: #000000 url(images/background.gif);
+	}
+
+input
+	{
+	border: 1px solid #939393;
+	background: #000000 url(images/background_barre.gif) repeat-x top;
+	color: #939393;
+	margin: 3px;
+	text-align: center;
+	}
+input:hover
+	{
+	border: 1px solid #007EBF;
+	background: #222222 bottom;
+	}
+textarea
+	{
+	border: 1px solid #939393;
+	background: #000000 url(images/background_textarea.gif) repeat-x bottom;
+	color: #939393;
+	margin: 3px;
+	width: 550px;
+	}
+textarea:hover
+	{
+	border: 1px solid #007EBF;
+	background-color: #151515;
+	}
+	
+#corps
+	{
+	width: 650px;
+	position: absolute;
+	left: 50%; 
+	top: 50%;
+	margin-top: -200px; /* moitié de la hauteur */
+	margin-left: -325px; /* moitié de la largeur */
+	}
+#titre
+	{
+	padding: 20px;
+	background: none;
+	text-align: center;
+	}
+#button
+	{
+	width: 100%;
+	text-align: center;
+	position: fixed;
+	bottom: 0px;
+	}
+a img
+	{
+	border: none;
+	}
+a
+	{
+	text-decoration: none;
+	}
+#compteur
+	{
+	font-size: 75%;
+	font-style: italic;
+	color: #333333;
+	text-align: right;
+	}
+code
+	{
+	padding: 10px;
+	}
+
+.Accordion {
+	border-left: solid 1px #007EBF;
+	border-right: solid 1px #007EBF;
+	border-bottom: solid 1px #007EBF;
+	background: #111111;
+	overflow: hidden;
+	margin: 0px;
+}
+.AccordionPanel {
+	margin: 0px;
+	padding: 0px;
+}
+.AccordionPanelTab {
+	background: #000000 url(images/background_barre.gif) repeat-x bottom;
+	border-top: solid 1px #007EBF;
+	margin: 0px;
+	padding: 2px;
+	cursor: pointer;
+	text-align: center;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+}
+.AccordionPanelContent {
+	overflow: auto;
+	margin: 0px;
+	padding: 0px;
+	height: 185px;
+	text-align: center;
+	font-size: 90%;
+}
+.AccordionPanelContent p {
+	padding: 10px;
+	!padding-top: 30px; /* Tous les IE */
+}
+.AccordionPanelOpen .AccordionPanelTab {
+	color: #007EBF;
+}
+.AccordionPanelTabHover {
+	color: #007EBF;
+}
+.AccordionPanelOpen .AccordionPanelTabHover {
+	color: #007EBF;
+}
+.AccordionFocused .AccordionPanelTab {
+	color: #939393;
+}
+.AccordionFocused .AccordionPanelOpen .AccordionPanelTab {
+	color: #007EBF;
+}

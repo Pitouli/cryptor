@@ -1,0 +1,31 @@
+Bonjour le forum !
+
+Bon, je ne pense pas que ce message soit hors charte, mais si c'était le cas, je fais entièrement confiance aux modo pour lui faire subir le chatiment qui convient, à savoir le rouler en boulette numérique et le mettre à la corbeille.
+
+Bon, maintenant que ceci est dit, entrons vite et bien dans le vif du sujet... 
+
+En bref, une première version d'un bookmarklet crypteur a vu le jour. Pour faire très court, ça fonctionne comme ça :
+- vous rédigez votre message tranquillement dans le forum, tout en clair sans vous embêtez.
+- quand vous avez fini, vous sélectionnez ce que vous voulez crypter et vous appuyez sur le favoris.
+
+Et votre texte est automatiquement remplacé par sa version cryptée.
+
+Bon, je n'ai pas chez moi 36.000 OS, ni 36.000 navigateurs. J'aurais donc besoin que certaines personnes se proposent pour tester ce bookmarklet, et qu'il me fassent un mini compte rendu de comment ça a marché.
+
+Il faudra le tester dans les différentes "Zone de texte" du forum, peut être dans quelque "ligne de texte" (comme la zone "Sujet" quand vous écrivez un message), et pas obligatoirement uniquement dans Thiweb.
+
+Et donc le compte rendu attendu devra contenir ces éléments :
+- dans quelles conditions ça MARCHE : navigateur, OS, "lieux" (zone de texte ou barre de texte)
+- dans quelles conditions ça ne MARCHE PAS : navigateur, OS, "lieux"
+- ce qui peut être AMELIORE
+
+Une précision : pour l'instant, ce bookmarklet est totalement dissocié du bookmarklet décryptant. A terme, je vais voir si je peux les regrouper en un seul. Donc les améliorations proposées (s'il y en a) doivent uniquement porter sur "l'action cryptante".
+
+Voila, je vous remercie grandement d'avance, 
+
+Contactez moi par mp, ou laissez un message et je vous contacterez !
+
+Zeraw
+
+PS: je suis déja au courant d'une imperfection dans mon script, mais elle est finalement assez discrète vu que sur mes différents tests elle n'a pas daignée apparaitre. En revanche elle devrait se montrer par exemple sur des firefox 2, donc si vous l'avez, n'hésitez pas à participer ! (et à ne pas tester uniquement dans les zone de rédaction de message du forum, mais dans d'autre zone de rédaction, et dans des barre de texte...)
+Encore merci.

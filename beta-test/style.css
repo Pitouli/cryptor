@@ -1,0 +1,122 @@
+html
+	{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	color: #939393;
+	background: #000000 url(/images/background.gif);
+	}
+body
+	{
+	background: #000000 url(/images/background.gif);
+	}
+
+input
+	{
+	border: 1px solid #939393;
+	background: #000000 url(/images/background_barre.gif) repeat-x top;
+	color: #939393;
+	margin: 3px;
+	text-align: center;
+	}
+input:hover
+	{
+	border: 1px solid #007EBF;
+	background: #222222 bottom;
+	}
+.input_checkbox 
+	{
+	border: none;
+	}
+textarea
+	{
+	border: 1px solid #939393;
+	background: #000000 url(/images/background_textarea.gif) repeat-x bottom;
+	color: #939393;
+	margin: 3px;
+	width: 550px;
+	}
+textarea:hover
+	{
+	border: 1px solid #007EBF;
+	}
+	
+#corps
+	{
+	width: 850px;
+	margin: auto;
+	padding: 10px;
+	position: relative;
+	border: 1px solid #007EBF;
+	}
+a
+	{
+	text-decoration: none;
+	color: #007EBF;
+	}
+a:hover 
+	{
+	color: #007EBF;
+	text-decoration: underline;
+	}
+#tableau_test
+	{
+	width: 100%;
+	font-size: 80%;
+	border-collapse: collapse;
+	border: 1px solid #007EBF;
+	}
+#tableau_test td
+	{
+	border-collapse: collapse;
+	padding: 3px;
+	border: 1px solid #007EBF;
+	}
+#tableau_test .tableau_titre1
+	{
+	background: #000000 url(/images/background_barre.gif) repeat-x bottom;
+	font-size: 140%;
+	font-weight: bold;
+	}
+#tableau_test .tableau_titre2
+	{
+	background: #000000 url(/images/background_barre.gif) repeat-x bottom;
+	font-size: 130%;
+	}
+#tableau_test .vert
+	{
+	background-color: #003300;
+	}
+#tableau_test .rouge
+	{
+	background-color: #990000;
+	}
+#tableau_cr_admin
+	{
+	font-size: 80%;
+	margin:auto;
+	border-collapse: collapse;
+	border: 1px solid #007EBF;
+	}
+#tableau_cr_admin td
+	{
+	border-collapse: collapse;
+	padding: 3px;
+	border: 1px solid #007EBF;
+	}
+#tableau_cr_admin .tableau_titre
+	{
+	background: #000000 url(/images/background_barre.gif) repeat-x bottom;
+	text-align: center;
+	font-size: 100%;
+	}
+#tableau_cr_admin .vert
+	{
+	background-color: #003300;
+	}
+#tableau_cr_admin .rouge
+	{
+	background-color: #990000;
+	}
+#tableau_cr_admin .color_result
+	{
+	width: 70px;
+	}

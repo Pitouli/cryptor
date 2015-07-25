@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+
+
+
+body {
+	background-image: url(images/css2_fond_page.png);
+	background-repeat: repeat;
+}
+
+.Style1 {color: #FFFFFF}
+.Style3 {font-family: Verdana, Arial, Helvetica, sans-serif; color: #FFFFFF;}
+
+a:link {
+	color: #FFFFFF;
+}
+a:visited {
+	color: #FFFFFF;
+}
+a:hover {
+	color: #FFFFFF;
+}
+a:active {
+	color: #FFFFFF;
+}
+
+
+
+
+.Panel {
+	width:700px;
+	margin:0 auto 0 auto;
+	/*border-left: solid 2px #ed8601;
+	border-right: solid 2px #ed8601;*/
+}
+.PanelTab {
+	background-color: #d67902;
+	color:#ffffff;
+	font: bold 1.2em sans-serif;
+	text-align:center;
+	margin: 0px;
+	padding: 2px;
+	cursor: pointer;
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	border-top: solid 4px #ed8601;
+	border-bottom: solid 4px #ed8601;
+	-moz-border-radius: 0px 0px 12px 12px;
+}
+.PanelTab:hover {
+	color: #000000;
+}
+.PanelContent {
+	overflow: auto;
+	background-color:#ed8601;
+	margin: auto;
+	padding: auto;
+	height: 190px;
+	border-bottom: dashed 1px #ffffff;
+}
+
+
+.rbroundbox { 
+	background: url(images/css2_nt.gif) repeat; 
+}
+.rbtop div { 
+	background: url(images/css2_tl.gif) no-repeat top left; 
+}
+.rbtop { 
+	background: url(images/css2_tr.gif) no-repeat top right; 
+}
+.rbbot div { 
+	background: url(images/css2_bl.gif) no-repeat bottom left; 
+}
+.rbbot { 
+	background: url(images/css2_br.gif) no-repeat bottom right; 
+}
+.rbtop div, .rbtop, .rbbot div, .rbbot {
+	width: 100%;
+	height: 10px;
+	font-size: 1px;
+}
+.rbcontent { 
+	margin: 0 10px; 
+}
+.rbroundbox { 
+	width: 720px; margin: 1em auto; 
+}
+
+
+.rbroundboxtitle { background: url(images/css2_onglet_nt.gif) repeat; }
+.rbtoptitle div { background: url(images/css2_onglet_tl.gif) no-repeat top left; }
+.rbtoptitle { background: url(images/css2_onglet_tr.gif) no-repeat top right; }
+.rbbottitle div { background: url(images/css2_onglet_bl.gif) no-repeat bottom left; }
+.rbbottitle { background: url(images/css2_onglet_br.gif) no-repeat bottom right; }
+
+
+.rbtoptitle div, .rbtoptitle, .rbbottitle div, .rbbottitle {
+width: 100%;
+height: 10px;
+font-size: 1px;
+}
+.rbcontenttitle { 	margin:0 auto 0 auto; }
+.rbroundboxtitle { width: 100%; margin: 0px; }
+
+
+
+.Textarea {
+	-moz-border-radius: 12px;
+	background-color:#d67902;
+	border:none;
+	padding:5px;
+	color: #ffffff;
+}
+/*#Test {
+	background:url(images/css2_accordion_bg.gif);
+}
+#Test div {
+	background:url(images/css2_accordion_tl.gif) top left no-repeat;
+}
+#Test div div {
+	background:url(images/css2_accordion_tr.gif) top right no-repeat;
+}
+#Test div div div {
+	background:url(images/css2_accordion_bl.gif) bottom left no-repeat;
+}
+#Test div div div div {
+	background:url(images/css2_accordion_br.gif) bottom right no-repeat;
+}*/

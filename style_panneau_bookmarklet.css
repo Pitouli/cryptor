@@ -1,0 +1,71 @@
+#panneau_bookmarklet_twl2 {
+	color: #939393;
+	font-family: Verdana, Helvetica, Arial, sans-serif;
+	font-size: 11px;
+	background-color: #1d1d1d;
+	border: solid 3px #007ebf;
+	border-top: none;
+	padding: 0px;
+	margin: 0px;
+	margin-right: 10px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	max-width: 600px;
+	overflow: hidden;
+	z-index: 200;
+	-webkit-border-bottom-right-radius: 5px;
+	-webkit-border-bottom-left-radius: 5px;
+	-moz-border-radius-bottomright: 5px;
+	-moz-border-radius-bottomleft: 5px;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+	scrollbar-arrow-color:#007ebf;
+	scrollbar-3dlight-color:#1d1d1d;
+	scrollbar-highlight-color:#1d1d1d;
+	scrollbar-face-color:#1d1d1d;
+	scrollbar-shadow-color:#1d1d1d;
+	scrollbar-darkshadow-color:#1d1d1d;
+	scrollbar-track-color:#1d1d1d;
+}
+#panneau_bookmarklet_twl2 p {
+	margin: 0px;
+	padding: 0px;
+}
+#panneau_bookmarklet_twl2 a {
+	text-decoration: none;
+	color: #007EBF;
+}
+#panneau_bookmarklet_twl2 a:hover {
+	color: #35a6e0;
+}
+#panneau_bookmarklet_twl2 a:visited {	
+	text-decoration: line-through;
+}
+#panneau_bookmarklet_twl2 #panneau_nav_bar {
+	font-weight: bold;
+	text-align: right;
+	margin: 0px;
+	padding: 3px;
+}
+#panneau_bookmarklet_twl2 #resultat {
+	margin: 0px;
+	padding: 10px;
+	border-top: 1px solid #007ebf;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 400px;
+}
+#panneau_bookmarklet_twl2 #panneau_textarea_result_crypte {
+	font-family: Courier New, Lucida Console, Monaco, sans-serif;
+	margin: 0px;
+	width : 450px;
+	height: 150px;
+	border: 1px solid #007ebf;
+	background: transparent;
+	font-size: 10px;
+	overflow-x: hidden;
+	overflow-y: auto;
+	color: #939393;
+}
+

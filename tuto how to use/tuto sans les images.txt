@@ -1,0 +1,159 @@
+[b][u][size=200]TWL2.0 ONLINE[/size][/u][/b] [i](mise-à-jour du tutoriel : novembre 2009)[/i]
+
+[u][size=150]INTRODUCTION[/size][/u]
+
+Comme vous le savez, pour des raisons de sécurités, mais aussi pour éviter que les liens ne puissent être analysés par les bot de moteur de recherche (ce qui d'une certaine manière rejoint les mesures de sécurité/confidentialités du forum), les liens partagés en section Cryptage doivent être, comme l'indique si bien le nom de la section, cryptés.
+
+Il existe un logiciel officiel, qui a de nombreux avantages, dont le plus important est de pouvoir décrypter le TWL2.1 
+
+Il existe aussi une solution online, qui a de nombreux avantages, et un inconvénient majeur : elle ne décrypte que le TWL2.0
+En revanche, elle a de nombreux avantages : qui dit "solution online" dit "accessible à tous, quel que soit le Système d'exploitation". Mais aussi "accessible n'importe où, à partir de n'importe quel outil connecté à internet, sans installation". Et donc, qui dit "sans installation" dit "légèreté".
+
+TWL2.0, c'est deux outils, pour vous faciliter la vie un maximum :
+C'est un site internet à l'adresse facilement mémorisable pour [b]crypter[/b] et [b]décrypter[/b] où que vous soyez : [b][url]http://twl2.fr.nf/[/url][/b]
+Mais c'est aussi un [b]bookmarklet[/b] ("favoris intelligent") qui vous permettra de [b]décrypter[/b] plus vite que jamais !
+
+[u][size=150]DECRYPTER AVEC LE SITE[/size][/u]
+
+[b]Le décryptage est extrêmement rapide :
+[list]
+[*]vous repérez un cryptage 
+[*]vous cliquez sur "tout sélectionner" (1 clic)
+[*]vous copiez avec  "Ctrl+C" (1 clic + 1 combi clavier)
+[*]vous cliquez sur votre favoris TWL2.0 (2 clics + 1 combi clavier)
+[*]vous collez dans la zone automatiquement sélectionnée avec "Ctrl+V" (2 clics + 2 combi clavier)
+[*]vous appuyez sur "Entrée" ou vous cliquez sur "Décrypter"[/list][/b]
+
+Tellement rapide que vous n'arrivez même pas à suivre ? Suivez l'explication en image !
+
+Mise en situation concrète.
+
+Vous vous baladiez tranquillement dans le forum, quand soudain vous vous retrouvé nez à nez avec un méchant cryptage TWL2.0 Comment identifier le cryptage TWL2.0 ? Et bien il est la plupart du temps vert, la plupart du temps dans une boite grise, et il commence TOUJOURS par TWL2.0 
+Vous aurez l'occasion de croiser dans le forum des liens cryptés en TWL2.1 . Comment faire la différence ? Il commence tout simplement par TWL2.1 au lieu de TWL2.0 ... 
+[i]Vous pourrez apprendre quelles sont les différences entre ces deux types de cryptage dans l'ANNEXE à la fin du tuto.[/i]
+
+En somme, vous êtes tombés sur çà : [i](le cadre rouge met en évidence le TWL2.0 du début de chaine)[/i]
+
+image1
+
+Ne paniquez pas ! Cliquez juste sur le lien bleu "Tout sélectionner", ou sélectionnez manuellement le cryptage. 
+
+image2
+
+Une fois la sélection faite, il s'agit de la copier. Faites au choix "clic droit" puis "Copier", ou avec votre clavier faite la combinaison de touche "Ctrl+C".
+Rendez vous alors sur le site http://twl2.fr.nf. 
+
+image3
+
+Le curseur est déjà positionné dans la zone de décryptage ! Il vous suffit donc de coller le cryptage que vous aviez collé à l'étape précédente, soit par un simple "Ctrl+V", ou par un "clic droit" dans la zone en dégradé puis un "clic gauche" sur "Coller".
+Appuyez sur le bouton [Décrypter] pour... décrypter ! Quel suspens insoutenable...
+
+image4
+
+Et voilà ! C'est terminé pour le décryptage ! Les liens sont directement cliquable, ne perdez pas plus de temps à faire des copier/coller. Si cependant vous en aviez besoin pour un potentiel archivage, le bouton "Sélectionner" vous permettra lui aussi de gagner du temps...
+
+image5
+
+[u][size=150]CRYPTER AVEC LE SITE[/size][/u]
+
+[b]Le cryptage est extrêmement rapide :
+[list]
+[*]vous cliquez sur votre favoris TWL2.0 (1 clic)
+[*]vous cliquez sur la barre "Crypter" (2 clics)
+[*]vous entrez le texte à crypter
+[*]vous appuyez sur "Entrée" ou cliquez sur "Crypter" (3 clics)
+[*]vous cliquez sur "Sélectionnez" (4 clics)
+[*]vous copiez avec "Ctrl+C" (4 clics + 1 combi clavier)[/list][/b]
+
+Tellement rapide que vous n'arrivez même pas à suivre ? Suivez l'explication en image !
+
+Mise en situation concrète.
+
+Vous avez vraiment envie de partager un logiciel avec la communauté. Après votre premier post, tout fier de vous, vous ne recevez que des commentaires désobligeants ! En somme, on vous dit de lire la charte. Et oui !Si vous y aviez fait un tour, vous vous seriez rendu compte qu'il faut crypter les liens que vous partagez, comme je l'ai dit en introduction.
+
+Ne vous inquiétez pas, tout va s'arranger.
+
+Rendez vous alors sur le site http://twl2.fr.nf. 
+
+image3
+
+Cliquez alors sur la barre où il y a marqué "Crypter"
+
+image7
+
+Dans la zone de texte, écrivez tout ce que vous avez sur le cœur, votre rancune, mais aussi et surtout vos liens.
+Puis cliquez sur le bouton "Crypter".
+
+Image8
+
+Et c'est bon ! Tout a été joliment crypté !
+Il ne vous reste plus qu'à copier (Ctrl+C) le résultat puis à le coller (Ctrl+V) dans votre message, de préférence entouré par les balises "code" (au dessus de la zone de rédaction du message dans le forum).
+Notez sur la capture d'écran le bouton "Sélectionner", qui comme son nom l'indique, permet de sélectionner en un clic tout le contenu de la zone...
+
+image9
+
+Et voilà ! C'est terminé pour le cryptage ! Une simplicité enfantine n'est ce pas ?
+
+[u][size=150]DECRYPTER AVEC LE BOOKMARKLET[/size][/u]
+
+Il bat tous les records de facilité et de vitesse ! Loin devant le logiciel ! Et plus pratique que jamais ! 
+
+[b][u]Préliminaires (à ne faire qu'une seule)[/u][/b]
+
+Rendez vous sur http://twl2.fr.nf/divers.php
+Vous y voyez un lien. Faite un clic droit dessus et ajoutez le au favoris, ou faite un cliquer-glisser depuis le lien vers la barre des favoris.
+Vous êtes maintenant prêt à battre tous les records de vitesse.
+[i]NB: Internet Explorer peut vous mettre en garde. C'est normal, car ce favoris intelligent est écrit en javascript, et n'est donc pas un simple favoris classique. C'est bien plus que ça ![/i]
+
+[b][u]Le décryptage à proprement parler[/u][/b]
+
+[b]Le décryptage n'a jamais été aussi rapide :
+[list]
+[*]vous repérez un cryptage 
+[*]vous cliquez sur "tout sélectionner" (1 clic)
+[*]vous cliquez sur votre favoris TWL2.0 (2 clics)[/list][/b]
+
+Et c'est tout. Oui oui, vous avez bien entendu, c'est tout ! Vous ne changez même pas de fenêtre !! Aucun popup ! Juste un élégant panneau qui est apparu en haut à droite de votre écran, avec les liens rendus cliquables.
+
+Tellement rapide que vous n'arrivez même pas à suivre ? Suivez l'explication en image !
+
+Mise en situation concrète.
+
+Vous vous baladiez tranquillement dans le forum, quand soudain vous vous retrouvé nez à nez avec un méchant cryptage TWL2.0 Comment identifier le cryptage TWL2.0 ? Et bien il est la plupart du temps vert, la plupart du temps dans une boite grise, et il commence TOUJOURS par TWL2.0 
+Vous aurez l'occasion de croiser dans le forum des liens cryptés en TWL2.1 . Comment faire la différence ? Il commence tout simplement par TWL2.1 au lieu de TWL2.0 ... 
+[i]Vous pourrez apprendre quelles sont les différences entre ces deux types de cryptage dans l'ANNEXE à la fin du tuto.[/i]
+
+En somme, vous êtes tombés sur çà : [i](le cadre rouge met en évidence le TWL2.0 du début de chaine)[/i]
+
+image1
+
+Ne paniquez pas ! Cliquez juste sur le lien bleu "Tout sélectionner", ou sélectionnez manuellement le cryptage. 
+
+image2
+
+Une fois la sélection faite, ciquez sur votre favoris TWL2.0
+
+image6
+
+Et voilà ! C'est terminé pour le décryptage ! Les liens sont directement cliquable, ne perdez pas plus de temps à faire des copier/coller. Si cependant vous en aviez besoin pour un potentiel archivage, le lien "Sélectionner" vous permettra lui aussi de gagner du temps... Le lien "Autre interface" vous permettra de faire basculer votre décryptage dans l'interface du site lui même. 
+Pourquoi ? 
+Par mesure de sécurité, les liens du bookmarklet passent par une page de protection. C'est quasiment invisible, mais empêche "d'aspirer les liens" avec un gestionnaire de téléchargement. Si vous avez besoin d'un tel gestionnaire, "Autre interface" vous permet d'obtenir la liste des liens tels qu'ils ont été rentrés par celui qui a fait le cryptage.
+Enfin, le lien "Fermer" permet de refermer avec élégance le panneau.
+
+[u][size=150]ANNEXE[/size][/u]
+
+[u]Quelles sont les différences entre TWL2.1 et TWL2.0 ?[/u]
+TWL2.1 : uniquement avec le logiciel ThiwebLive, uniquement sur Windows, uniquement sur VOTRE ordinateur (besoin d'une installation)
+TWL2.0 : avec ThiwebLive ou directement en ligne avec TWL2.0 ONLINE, toutes plateformes, sur tout appareil connecté à internet
+
+[u]Il me faut donc un favoris classique ET le bookmarklet ?[/u]
+NON !! Le bookmarklet fait office de favori classique (c'est à dire qu'il redirige vers le site http://twl2.fr.nf) quand vous cliquez dessus sans avoir fait de sélection dans la page (ou quand vous faite un clic de la roulette. Dans ce cas là, il s'ouvre même dans un nouvel onglet).
+
+[u]Des améliorations en perspective ?[/u]
+Oui. Il me semble possible de réitérer l'expérience du bookmarlet décryptant avec... Un bookmarklet cryptant ! Pas plus d'info pour l'instant, que voulez vous une vie bien chargée, c'est peu de temps libre. Et je ne sais toujours pas si j'arriverai bel et bien à le faire. Mon talent est modeste. Plus que mes dires en tout cas !!
+
+[u]Comment aider à faire connaitre le site ?[/u]
+Sur la page d'accueil du site, en haut à droite, vous trouvez un onglet qui vous propose différentes userbars à mettre dans votre signature. Le meilleur moyen d'aider, c'est de faire connaitre le nom du site ! Car plus il sera utilisé, plus il y aura de cryptage en TWL2.0, et donc plus les cryptage pourront être décryptés n'importe où. 
+
+[u]Comment aider à faire connaitre le site ?[/u]
+Sur la page d'accueil du site, en haut à droite, vous trouvez un onglet qui vous propose différentes userbars à mettre dans votre signature. Le meilleur moyen d'aider, c'est de faire connaitre le nom du site ! Car plus il sera utilisé, plus il y aura de cryptage en TWL2.0, et donc plus les cryptage pourront être décryptés n'importe où. 
