@@ -33,7 +33,7 @@
 		      $clair = $_POST['clair'];
 		      $hexrev = strtoupper(strrev(bin2hex(stripslashes($clair)))) ;
 		      //$hexrev = str_replace("A0D0", "AD", $hexrev);
-		      $crypte = wordwrap("TWL2.0$hexrev", 65 ," ", 1);
+		      $crypte = wordwrap("TWL2.2$hexrev", 65 ," ", 1);
 		    }
 		  else { $crypte = "Aucune donn&eacute; n'a pu &ecirc;tre crypt&eacute;e"; }
 		?>

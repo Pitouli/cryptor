@@ -33,22 +33,7 @@
 					$p = '';
 					for ($i=0; $i < strlen($str); $i=$i+2)
 						{
-							$c = substr($str, $i, 2);
-							//echo "  [ ".$c." => ".chr(hexdec($c))." ] ";
-
-							// Because of issues with encoding, I had the bad idea to replace all the "0D0A" characters (probably \r\n) by a simple "AD" which after decoding gives a "Ù" which I then had to replace by a "<br />" etc.
-							// I have made the encoding correction, which allowed me to delete all this "patches". The issue is now that many of the encrypted codes have been done with the "buggy" version
-							// Therefore, the only goal of this "if/else" condition is to correct make the decryptor working with the old encrypted codes. It's a patch against the patches... 
-							if ($c == "DA") 
-								{
-									//echo "plop";
-									$p .= chr(hexdec("0D"));
-									$p .= chr(hexdec("0A"));
-								}
-							else 
-								{
-									$p .= chr(hexdec($c));
-								}
+							$p .= chr(hexdec(substr($str, $i, 2)));
 						}
 					return $p;
 				}
@@ -60,13 +45,39 @@
 				{ 
 					$crypte = trim($_GET['crypte']);
 				}
+
 			$crypte = str_replace("\x20", "", $crypte);
 			$crypte = str_replace("\x0D", "", $crypte);
 			$crypte = str_replace("\x0A", "", $crypte);
 			$header = substr($crypte, 0, 6);
-			if ($header == "TWL2.0")
+
+			if ($header == "TWL2.0" || $header == "TWL2.2")
 				{
 					$crypte = substr($crypte, 6);
+
+					if ($header == "TWL2.0") 
+					{
+						// Because of issues with encoding, I had the bad idea to replace all the "0D0A" characters (probably \r\n) by a simple "AD" which after decoding gives a "Ù" which I then had to replace by a "<br />" etc.
+						// I have made the encoding correction, which allowed me to delete all this "patches". The issue is now that many of the encrypted codes have been done with the "buggy" version
+						// Therefore, the only goal of this "if/else" condition is to correct make the decryptor working with the old encrypted codes. It's a patch against the patches... 
+						$str = "";
+						for ($i=0; $i < strlen($crypte); $i=$i+2)
+							{
+								$c = substr($crypte, $i, 2); 
+								if ($c == "AD") 
+									{
+										$str .= "A0D0";
+									}
+								else
+									{
+										$str .= $c;
+									}
+							}		
+						$crypte = $str;
+						// Normally, it is the only difference
+						// NB : this "for loop" is equivalent to this : str_replace("AD", "A0D0", $crypte); with the difference that it observes the characters 2 by 2. Therefore, XXADXX will give XXA0D0XX in both case, but XADXXX will give XA0D0XXX in the first case, which is not wanted, and stay XADXXX with the "for loop"
+					}
+
 					$crypte = strrev($crypte);
 					$decrypte = hex2ascii($crypte);
 					//echo "<p>phase 5: ".$decrypte."</p>";
@@ -80,7 +91,7 @@
 				}
 			else
 				{
-					echo "<p>Ce n'est pas une cha&icirc;ne crypt&eacute;e TWL2.0</p>";
+					echo "<p>Ce n'est pas une cha&icirc;ne crypt&eacute;e TWL2.0 ni TWL2.2</p>";
 				}
 		  ?>
        </div>

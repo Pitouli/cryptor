@@ -17,7 +17,7 @@ else { // On est pas dans une zone de texte
 	if(selection && selection.length > 0) { // Il y a une selection
 		ActionSelectionHorsInput(selection);
 	}
-	else { // Il n'y a pas de sélection
+	else { // Il n'y a pas de sÃ©lection
 		location.href='http://twl2.fr.nf/';
 	}
 }
@@ -32,13 +32,13 @@ function ActionSelectionHorsInput(selection) {
 
 // var regExpBeginning = /^\s+/;
 // var regExpEnd = /\s+$/;  
-// selection = selection.replace(regExpBeginning, "").replace(regExpEnd, ""); // On supprime les carcatères invisibles de début et de fin de chaine
+// selection = selection.replace(regExpBeginning, "").replace(regExpEnd, ""); // On supprime les carcatÃ¨res invisibles de dÃ©but et de fin de chaine
 
 header = substr(selection, 0, 6);
 
-if (header == "TWL2.0")
+if (header == "TWL2.0" || header == "TWL2.2")
 	{		
-		decrypte = decrypterTWL20(selection,true);
+		decrypte = decrypter(selection,true);
 		compteur(); // On compte le nombre d'utilisation
 
 		resultat = "<form action=\"http://twl2.fr.nf/decrypte.php\" name=\"FormDecryptage\" method=\"post\" target=\"_blank\" style=\"display:none;\"><textarea name=\"crypte\" cols=\"1\" rows=\"1\">"+selection+"</textarea></form><p id=\"panneau_nav_bar\"><a href=\"javascript:selectionner('resultat');\" title=\"S&eacute;lectionner le r&eacute;sultat\">S&eacute;lectionner</a> - <a href=\"javascript:document.FormDecryptage.submit();\" title=\"D&eacute;crypter dans une autre interface (utilisateurs de gestionnaires de t&eacute;l&eacute;chargement)\">Autre Interface</a> - <a href=\"javascript:fermerDiv('panneau_bookmarklet_twl2');\" title=\"Fermer le cadre\">Fermer</a></p><p id=\"resultat\">"+decrypte+"</p>";
@@ -66,10 +66,10 @@ if(szSelect.length > 0) {
 	
 	header = substr(szSelect, 0, 6);
 	
-	if (header == "TWL2.0")
+	if (header == "TWL2.0" || header == "TWL2.2")
 		{
-			var decrypte_panneau = decrypterTWL20(szSelect,true); // Le decryptage classique, avec remplacement
-			var decrypte = decrypterTWL20(szSelect,false); // On est dans un input, donc on remplace pas les retours à la ligne et les url
+			var decrypte_panneau = decrypter(szSelect,true); // Le decryptage classique, avec remplacement
+			var decrypte = decrypter(szSelect,false); // On est dans un input, donc on remplace pas les retours Ã  la ligne et les url
 			compteur(); // On compte le nombre d'utilisation
 	
 			resultat = "<form action=\"http://twl2.fr.nf/decrypte.php\" name=\"FormDecryptage\" method=\"post\" target=\"_blank\" style=\"display:none;\"><textarea name=\"crypte\" cols=\"1\" rows=\"1\">"+szSelect+"</textarea></form><p id=\"panneau_nav_bar\"><a href=\"javascript:selectionner('resultat');\" title=\"S&eacute;lectionner le r&eacute;sultat\">S&eacute;lectionner</a> - <a href=\"javascript:document.FormDecryptage.submit();\" title=\"D&eacute;crypter dans une autre interface (utilisateurs de gestionnaires de t&eacute;l&eacute;chargement)\">Autre Interface</a> - <a href=\"javascript:fermerDiv('panneau_bookmarklet_twl2');\" title=\"Fermer le cadre\">Fermer</a></p><p id=\"resultat\">"+decrypte_panneau+"</p>";
@@ -99,7 +99,7 @@ if(szSelect.length > 0) {
 		}
 } 
 else { // Si la selection est de longueur nulle
-	if($('panneau_bookmarklet_twl2')) { // Si l'élément existe déjà
+	if($('panneau_bookmarklet_twl2')) { // Si l'Ã©lÃ©ment existe dÃ©jÃ 
 		fermerDiv('panneau_bookmarklet_twl2');
 	}	
 	txt_ = '[url=http://twl2.fr.nf/][img]http://twl2.fr.nf/ub/?ub=userbar_3.gif[/img][/url][url=http://twl2.fr.nf/divers.php][img]http://twl2.fr.nf/ub/?npc&ub=bouton_bookmarklet.gif[/img][/url][url=http://twl2.fr.nf/][img]http://twl2.fr.nf/ub/?npc&ub=bouton_site.gif[/img][/url][url=http://forum.thiweb.com/viewtopic.php?f=9&t=1242][img]http://twl2.fr.nf/ub/?npc&ub=bouton_tuto.gif[/img][/url]';
@@ -179,18 +179,33 @@ function ActionDansInput() {
 
 // FONCTIONS DE CRYPTAGE ET DECRYPTAGE
 
-function decrypterTWL20(crypte, transfURL) { // "transfURL" peut être true ou flase
-	crypte = htmlentities(crypte); // Ceci est il vraiment utile ?
+function decrypter(crypte, transfURL) { // "transfURL" peut Ãªtre true ou flase
+	header = substr(crypte, 0, 6);
+	//crypte = htmlentities(crypte); // Ceci est il vraiment utile ?
 	crypte = str_replace("\x20", "", crypte);
 	crypte = str_replace("\x0D", "", crypte);
 	crypte = str_replace("\x0A", "", crypte);
 	crypte = substr(crypte, 6);
+
+	if (header == "TWL2.0")  {
+		// Suite a des petits... hum bug d'encodage... le TWL2.0 faisait des remplacements mal venus. Donc on les inverse ic (voir code source php)
+		str = "";
+		for (i=0; i < strlen(crypte); i=i+2) {
+			c = substr(crypte, i, 2);
+			if (c=="AD")
+				str += "A0D0";
+			else
+				str += c;
+		}
+		crypte = str;		
+	}
+
 	crypte = strrev(crypte);
 	decrypte = hex2ascii(crypte);
 	if(transfURL) { // Si on ne travaille pas dans un input
 		decrypte = htmlentities(decrypte);
 		decrypte = nl2br(decrypte);
-		decrypte = str_replace("&Uacute;", "<br />", decrypte);
+		//decrypte = str_replace("&Uacute;", "<br />", decrypte);
 		var reg = new RegExp("([a-zA-Z0-9]+(://)[^ <>]+)+","gi");
 		decrypte = decrypte.replace(reg, "<a href='http://twl2.fr.nf/no-referer.php?u=$1' target=_blank>$1</a>");	
 	}
@@ -199,8 +214,8 @@ function decrypterTWL20(crypte, transfURL) { // "transfURL" peut être true ou fl
 
 function crypter(str,balise){ // "balise" peut etre true ou false
 	hexrev = strtoupper(strrev(bin2hex(stripslashes(str)))) ;
-	hexrev = str_replace("A0D0", "AD", hexrev);
-	crypte = "TWL2.0" + hexrev;
+	//hexrev = str_replace("A0D0", "AD", hexrev); // This was used for TWL2.0
+	crypte = "TWL2.2" + hexrev;
 	crypte = wordwrap(crypte, 65 ," ", 1);
 	if(balise) { crypte = "[code]" + crypte + "[/code]"; }
 	return crypte;
@@ -228,11 +243,11 @@ document.getElementsByTagName('HEAD').item(0).appendChild(styleTag);
 // FONCTIONS DE CREATION DE LA DIV DE RESULTAT
 
 function ajouteElement(typeElement, contenu, idElement, vitesse) {
-	// On regarde d'abord si l'élément existe ou pas
-	if($(idElement)) { // Si l'élément existe déjà
+	// On regarde d'abord si l'Ã©lÃ©ment existe ou pas
+	if($(idElement)) { // Si l'Ã©lÃ©ment existe dÃ©jÃ 
 		document.body.removeChild($(idElement));
 	}	
-	// crée un nouvel élément div
+	// crÃ©e un nouvel Ã©lÃ©ment div
 	// et lui donne un peu de contenu
 	// et on lui donne un id
 	// et on le masque
@@ -240,7 +255,7 @@ function ajouteElement(typeElement, contenu, idElement, vitesse) {
 	nouvelElement.innerHTML = contenu;
 	nouvelElement.id = idElement;
 	
-	// ajoute l'élément qui vient d'être créé et son contenu au DOM
+	// ajoute l'Ã©lÃ©ment qui vient d'Ãªtre crÃ©Ã© et son contenu au DOM
 	document.body.appendChild(nouvelElement);
 //	$(idElement).style.display='none';
 //	
@@ -968,7 +983,7 @@ function get_html_translation_table(table, quote_style) {
 			
 		};
 			
-		// Même liste que précédemment, mais avec un autre type d'écriture			
+		// MÃªme liste que prÃ©cÃ©demment, mais avec un autre type d'Ã©criture			
 		
 		/*			
         // ascii decimals for better compatibility
