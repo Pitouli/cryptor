@@ -48,6 +48,8 @@ else {
 		$response['status'] = 'success';
 		$response['action'] = 'code';
 		$response['message'] = code($str);
+
+		incrementUsageCounter ()
 	}
 	else if ($action == 'decode') {
 
@@ -55,6 +57,8 @@ else {
 			$response['message'] = array ("html" => decode($str), "raw" => decode($str, false));
 			$response['status'] = 'success';
 			$response['action'] = 'decode';
+
+			incrementUsageCounter ()
 		}
 		catch (Exception $e) {
 			$response['status'] = 'error';
