@@ -1,3 +1,5 @@
+<?php require 'functions.php'; ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -27,18 +29,8 @@
     <div class="AccordionPanel">
       <div class="AccordionPanelTab">R&eacute;sultat du cryptage</div>
       <div class="AccordionPanelContent">
-        <?php
-		  if(isset($_POST['clair']))
-		    {
-		      $clair = $_POST['clair'];
-		      $hexrev = strtoupper(strrev(bin2hex(stripslashes($clair)))) ;
-		      //$hexrev = str_replace("A0D0", "AD", $hexrev);
-		      $crypte = wordwrap("TWL2.2$hexrev", 65 ," ", 1);
-		    }
-		  else { $crypte = "Aucune donn&eacute; n'a pu &ecirc;tre crypt&eacute;e"; }
-		?>
         <p>
-          <textarea name="resultat" id="resultat" cols="70" rows="5"><?php echo $crypte; ?></textarea>
+          <textarea name="resultat" id="resultat" cols="70" rows="5"><?php echo isset($_POST['clair']) ? code($_POST['clair']) : "Aucune donnée n'a pu être cryptée"; ?></textarea>
           <br />
           <input value="S&eacute;lectionner" type="button" onclick="selectResultat();" />
         </p>
@@ -72,15 +64,7 @@
     </div>
   </div>
   <div id="compteur">
-    <?php
-		$fp = fopen("compteur.txt","r+"); 
-		$nbutilisations = fgets($fp,255); 
-		$nbutilisations++; 
-		fseek($fp,0); 
-		fputs($fp,$nbutilisations); 
-		fclose($fp); 
-		echo'Nombre d\'utilisations : '.$nbutilisations.'';
-	?>
+    <?php echo 'Nombre d\'utilisations : '.incrementUsageCounter(); ?>
   </div>
 </div>
 <div id="button"><a href="http://live.thiweb.com/"><img src="images/button_redna.png" alt="Redna Project" /></a><a href="http://forum.thiweb.com/"><img src="images/button_thiweb.png" alt="For Thiweb" width="80" height="15" /></a><a href="http://twl2.fr.nf/"><img src="images/button_zeraw.png" alt="By Zeraw" width="80" height="15" /></a><a href="http://validator.w3.org/check?uri=referer"><img src="images/button_valid.png" alt="Valid XHTML 1.1" /></a></div>

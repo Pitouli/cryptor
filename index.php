@@ -1,3 +1,5 @@
+<?php require 'functions.php'; ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,12 +32,7 @@
     <p style="text-align:center"><img src="ub/?npc&amp;ub=userbar_2.gif" alt="Userbar num&eacute;ro 2" width="350" height="19" /><br />code &agrave; copier : 
   	  <input type="text" value="[url=http://twl2.fr.nf/divers.php][img]http://twl2.fr.nf/ub/?ub=userbar_2.gif[/img][/url]" onclick="select()" /></p>
     <p style="font-size: 75%; font-style: italic; color: #333333; text-align: right;">
-	  <?php
-		  $fp = fopen("ub/compteur.txt","r+"); 
-		  $nbutilisations = fgets($fp,255); 
-		  fclose($fp); 
-		  echo'Nombre d\'affichages des userbars : '.$nbutilisations.'';
-	  ?>
+	    <?php echo'Nombre d\'affichages des userbars : '.readUserbarCounter(); ?>
     </p>
   </div>
   <div class="titre-onglet">Partager TWL2.0 avec les userbars</div>
@@ -71,12 +68,7 @@
     </div>
   </div>
   <div id="compteur">
-    <?php
-		$fp = fopen("compteur.txt","r+"); 
-		$nbutilisations = fgets($fp,255); 
-		fclose($fp); 
-		echo'Nombre d\'utilisations : '.$nbutilisations.'';
-	?>
+    <?php	echo'Nombre d\'utilisations : '.readUsageCounter();	?>
   </div>
 </div>
 <div id="button"><a href="http://live.thiweb.com/"><img src="images/button_redna.png" alt="Redna Project" /></a><a href="http://forum.thiweb.com/"><img src="images/button_thiweb.png" alt="For Thiweb" width="80" height="15" /></a><a href="http://twl2.fr.nf/"><img src="images/button_zeraw.png" alt="By Zeraw" width="80" height="15" /></a><a href="http://validator.w3.org/check?uri=referer"><img src="images/button_valid.png" alt="Valid XHTML 1.1" /></a></div>

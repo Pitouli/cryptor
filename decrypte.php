@@ -1,3 +1,5 @@
+<?php require 'functions.php'; ?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -28,71 +30,16 @@
       <div class="AccordionPanelTab">R&eacute;sultat du d&eacute;cryptage</div>
       <div class="AccordionPanelContent">
           <?php
-			function hex2ascii($str)
-				{
-					$p = '';
-					for ($i=0; $i < strlen($str); $i=$i+2)
-						{
-							$p .= chr(hexdec(substr($str, $i, 2)));
-						}
-					return $p;
-				}
 			if(isset($_POST['crypte'])) 
-				{ 
-					$crypte = trim($_POST['crypte']);
-				}			
+				$crypte = $_POST['crypte'];
 			elseif(isset($_GET['crypte'])) 
-				{ 
-					$crypte = trim($_GET['crypte']);
-				}
+				$crypte = $_GET['crypte'];
 
-			$crypte = str_replace("\x20", "", $crypte);
-			$crypte = str_replace("\x0D", "", $crypte);
-			$crypte = str_replace("\x0A", "", $crypte);
-			$header = substr($crypte, 0, 6);
-
-			if ($header == "TWL2.0" || $header == "TWL2.2")
-				{
-					$crypte = substr($crypte, 6);
-
-					if ($header == "TWL2.0") 
-					{
-						// Because of issues with encoding, I had the bad idea to replace all the "0D0A" characters (probably \r\n) by a simple "AD" which after decoding gives a "Ù" which I then had to replace by a "<br />" etc.
-						// I have made the encoding correction, which allowed me to delete all this "patches". The issue is now that many of the encrypted codes have been done with the "buggy" version
-						// Therefore, the only goal of this "if/else" condition is to correct make the decryptor working with the old encrypted codes. It's a patch against the patches... 
-						$str = "";
-						for ($i=0; $i < strlen($crypte); $i=$i+2)
-							{
-								$c = substr($crypte, $i, 2); 
-								if ($c == "AD") 
-									{
-										$str .= "A0D0";
-									}
-								else
-									{
-										$str .= $c;
-									}
-							}		
-						$crypte = $str;
-						// Normally, it is the only difference
-						// NB : this "for loop" is equivalent to this : str_replace("AD", "A0D0", $crypte); with the difference that it observes the characters 2 by 2. Therefore, XXADXX will give XXA0D0XX in both case, but XADXXX will give XA0D0XXX in the first case, which is not wanted, and stay XADXXX with the "for loop"
-					}
-
-					$crypte = strrev($crypte);
-					$decrypte = hex2ascii($crypte);
-					//echo "<p>phase 5: ".$decrypte."</p>";
-					$decrypte = nl2br(htmlentities($decrypte));
-					//echo "phase 6: ".$decrypte;
-					//$decrypte = str_replace("&Uacute;", "<br />", $decrypte);
-					$decrypte = ereg_replace("[[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/]","<a href=\"\\0\" target=\"blank\">\\0</a>", $decrypte);
-					//echo "phase 7: ".$decrypte."</p>";
-
-					echo '<p><input value="S&eacute;lectionner" type="button" onclick="selectSpan(this); return false;" /><br /><span id="resultat">'.$decrypte.'</span></p>';
-				}
-			else
-				{
-					echo "<p>Ce n'est pas une cha&icirc;ne crypt&eacute;e TWL2.0 ni TWL2.2</p>";
-				}
+			try {
+				echo '<p><input value="S&eacute;lectionner" type="button" onclick="selectSpan(this); return false;" /><br /><span id="resultat">'.decode($crypte).'</span></p>';
+			} catch (Exception $e) {
+			 	echo "<p>".$e->getMessage()."</p>";
+			}
 		  ?>
        </div>
     </div>
@@ -124,15 +71,7 @@
     </div>
   </div>
   <div id="compteur">
-    <?php
-		$fp = fopen("compteur.txt","r+"); 
-		$nbutilisations = fgets($fp,255); 
-		$nbutilisations++; 
-		fseek($fp,0); 
-		fputs($fp,$nbutilisations); 
-		fclose($fp); 
-		echo'Nombre d\'utilisations : '.$nbutilisations.'';
-	?>
+    <?php echo 'Nombre d\'utilisations : '.incrementUsageCounter(); ?>
   </div>
 </div>
 <div id="button"><a href="http://live.thiweb.com/"><img src="images/button_redna.png" alt="Redna Project" /></a><a href="http://forum.thiweb.com/"><img src="images/button_thiweb.png" alt="For Thiweb" width="80" height="15" /></a><a href="http://twl2.fr.nf/"><img src="images/button_zeraw.png" alt="By Zeraw" width="80" height="15" /></a><a href="http://validator.w3.org/check?uri=referer"><img src="images/button_valid.png" alt="Valid XHTML 1.1" /></a></div>
