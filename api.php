@@ -49,7 +49,7 @@ else {
 		$response['action'] = 'code';
 		$response['message'] = code($str);
 
-		incrementUsageCounter ()
+		incrementUsageCounter ();
 	}
 	else if ($action == 'decode') {
 
@@ -58,7 +58,7 @@ else {
 			$response['status'] = 'success';
 			$response['action'] = 'decode';
 
-			incrementUsageCounter ()
+			incrementUsageCounter ();
 		}
 		catch (Exception $e) {
 			$response['status'] = 'error';
@@ -74,6 +74,6 @@ header("Access-Control-Allow-Origin: *");
 header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Max-Age: 86400'); 
 
-header('Content-Type: text/html; charset=utf-8');
+header('Content-Type: text/json; charset=utf-8');
 
 echo json_encode($response, JSON_FORCE_OBJECT);
