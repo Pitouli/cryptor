@@ -33,7 +33,8 @@ function decode($coded, $html = true, $convertLinks = true) {
 			$str = "";
 			for ($i=0; $i < strlen($coded); $i=$i+2) {
 				$c = substr($coded, $i, 2); 
-				if ($c == "AD") 
+				//echo " { ".$c." } ";
+				if ($c == "AD")
 					$str .= "A0D0";
 				else 
 					$str .= $c;
@@ -44,21 +45,29 @@ function decode($coded, $html = true, $convertLinks = true) {
 		}
 
 		$coded = strrev($coded);
-		$decoded = hex2ascii($coded);
+		//$decoded = hex2ascii($coded);
+		$decoded = hex2bin($coded);
+
+		if ($header == "TWL2.0")
+			$decoded = iconv("ISO-8859-1", "utf-8//IGNORE", $decoded);
+
 		//echo "<p>phase 5: ".$decoded."</p>";
+
 		if ($html) 
 			$decoded = htmlentities($decoded);
+
 		//echo "phase 6: ".$decoded;
 		//$decoded = str_replace("&Uacute;", "<br />", $decoded);
 		if ($html && $convertLinks) 
 			//$decoded = preg_replace("/([[:alpha:]]+://[^<>[:space:]]+[[:alnum:]/])/i",'<a href="$1" target="blank">$1</a>', $decoded);
-			$decoded = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $decoded);
+			//$decoded = preg_replace('@(https?://([-\w\.]+[-\w])+(:\d+)?(/([\w/_\.#-]*(\?\S+)?[^\.\s])?)?)@', '<a href="$1" target="_blank">$1</a>', $decoded);
+			$decoded = preg_replace('@([a-z]{2,6}://[-\w\.#!/]+)@', '<a href="$1" target="_blank">$1</a>', $decoded);
 
 		if ($html) 
 			$decoded = nl2br($decoded);
 		//echo "phase 7: ".$decoded."</p>";
 
-		$decoded = iconv("utf-8", "utf-8//ignore", $decoded);
+		//$decoded = iconv("utf-8", "utf-8//IGNORE", $decoded);ISO-8859-1
 
 		if (empty($decoded))
 			throw new Exception('Le décryptage a retourné une chaîne vide. Est-ce normal ?');
@@ -73,6 +82,8 @@ function decode($coded, $html = true, $convertLinks = true) {
 function hex2ascii($hex) {
 	$ascii = '';
 	for ($i=0; $i < strlen($hex); $i=$i+2) {
+		//$c = substr($hex, $i, 2);
+		//echo "'".$c."' => ".chr(hexdec($c))." ; ";
 		$ascii .= chr(hexdec(substr($hex, $i, 2)));
 	}
 	return $ascii;
